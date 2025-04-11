@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jose | Nevis</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#4F46E5", secondary: "#10B981" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      }
+      .welcome-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #4F46E5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      animation: welcomeFadeOut 2s ease-in-out forwards;
+      animation-delay: 2.5s;
+      }
+      .welcome-text {
+      font-family: 'Pacifico', serif;
+      color: white;
+      font-size: 2.5rem;
+      opacity: 0;
+      transform: scale(0.5);
+      animation: welcomeTextIn 1s ease-out forwards,
+                 welcomeTextOut 1s ease-in forwards;
+      animation-delay: 0.5s, 2s;
+      }
+      @keyframes welcomeFadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; visibility: hidden; }
+      }
+      @keyframes welcomeTextIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+      }
+      @keyframes welcomeTextOut {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(1.5); }
+      }
+      .typewriter {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #4F46E5;
+      animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+      }
+      @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+      }
+      @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #4F46E5 }
+      }
+      .fade-in {
+      animation: fadeIn 1.5s ease-in-out;
+      }
+      @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+      }
+      .float {
+      animation: float 3s ease-in-out infinite;
+      }
+      @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+      }
+      .pulse {
+      animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+      }
+      .social-icon:hover {
+      transform: translateY(-5px);
+      }
+      .nav-link {
+      position: relative;
+      }
+      .nav-link::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #4F46E5;
+      transition: width 0.3s ease;
+      }
+      .nav-link:hover::after {
+      width: 100%;
+      }
+      .project-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+      .skill-bar {
+      position: relative;
+      height: 8px;
+      border-radius: 4px;
+      background: #e0e0e0;
+      overflow: hidden;
+      }
+      .skill-progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #4F46E5, #10B981);
+      animation: progress 1.5s ease-out forwards;
+      transform-origin: left;
+      transform: scaleX(0);
+      }
+      @keyframes progress {
+      to { transform: scaleX(1); }
+      }
+      .form-input {
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .form-input:focus {
+      border-color: #4F46E5;
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+      }
+      .btn-submit {
+      position: relative;
+      overflow: hidden;
+      }
+      .btn-submit::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.5s, opacity 0.5s;
+      }
+      .btn-submit:active::after {
+      transform: translate(-50%, -50%) scale(2);
+      opacity: 1;
+      }
+      .timeline-item {
+      position: relative;
+      padding-left: 30px;
+      }
+      .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 2px;
+      background-color: #e0e0e0;
+      }
+      .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 0;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #4F46E5;
+      }
+    </style>
+  </head>
+  <body class="bg-white">
+    <!-- Welcome Animation Overlay -->
+    <div class="welcome-overlay">
+      <div class="welcome-text">Welcome to My Website</div>
+    </div>
+    <!-- Navigation Bar -->
+    <nav class="fixed w-full top-0 bg-white shadow-sm z-50 px-4 py-3">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+          <div
+            class="w-8 h-8 flex items-center justify-center bg-gradient-to-r from-primary to-secondary text-white rounded-full font-['Pacifico'] text-lg"
+          >
+            XN
+          </div>
+          <span class="font-['Pacifico'] text-primary text-lg">Xnice Jose</span>
+        </div>
+        <div class="hidden md:flex space-x-6">
+          <a
+            href="#home"
+            class="nav-link text-gray-700 hover:text-primary transition duration-300"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="nav-link text-gray-700 hover:text-primary transition duration-300"
+            >About</a
+          >
+          <a
+            href="#skills"
+            class="nav-link text-gray-700 hover:text-primary transition duration-300"
+            >Skills</a
+          >
+          <a
+            href="#portfolio"
+            class="nav-link text-gray-700 hover:text-primary transition duration-300"
+            >Portfolio</a
+          >
+          <a
+            href="#contact"
+            class="nav-link text-gray-700 hover:text-primary transition duration-300"
+            >Contact</a
+          >
+        </div>
+        <button
+          class="md:hidden w-8 h-8 flex items-center justify-center cursor-pointer"
+        >
+          <i class="ri-menu-line ri-lg"></i>
+        </button>
+      </div>
+    </nav>
+    <!-- Mobile Menu (Hidden by default) -->
+    <div class="hidden fixed inset-0 bg-white z-50 pt-16 px-4">
+      <div class="flex flex-col space-y-4">
+        <a href="#home" class="text-xl py-2 border-b border-gray-100">Home</a>
+        <a href="#about" class="text-xl py-2 border-b border-gray-100">About</a>
+        <a href="#skills" class="text-xl py-2 border-b border-gray-100"
+          >Skills</a
+        >
+        <a href="#portfolio" class="text-xl py-2 border-b border-gray-100"
+          >Portfolio</a
+        >
+        <a href="#contact" class="text-xl py-2">Contact</a>
+      </div>
+    </div>
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-12 px-4">
+      <div class="flex flex-col items-center text-center">
+        <div
+          class="w-32 h-32 rounded-full overflow-hidden mb-6 border-4 border-primary shadow-lg"
+        >
+          <img
+            src="Jose.jpg"
+            alt="Mwesigwa Joseph"
+            class="w-full h-full object-cover object-top"
+          />
+        </div>
+        <h1 class="text-3xl font-bold mb-2 ">Mwesigwa Joseph</h1>
+        <p class="text-lg text-gray-600 mb-4">(Xnice Nevis)</p>
+        <div
+          class="bg-gradient-to-r from-primary/10 to-secondary/10 p-6 rounded-lg max-w-md mx-auto mb-8 fade-in"
+        >
+          <p class="text-gray-700 leading-relaxed">
+            Web Developer & Designer | IT Student at Muni University
+          </p>
+        </div>
+        <div class="flex space-x-4 mb-8">
+          <a
+            href="#"
+            class="social-icon w-10 h-10 flex items-center justify-center bg-[#0077B5] text-white rounded-full transition duration-300"
+          >
+            <i class="ri-linkedin-fill ri-lg"></i>
+          </a>
+          <a
+            href="#"
+            class="social-icon w-10 h-10 flex items-center justify-center bg-[#333] text-white rounded-full transition duration-300"
+          >
+            <i class="ri-github-fill ri-lg"></i>
+          </a>
+          <a
+            href="#"
+            class="social-icon w-10 h-10 flex items-center justify-center bg-[#1DA1F2] text-white rounded-full transition duration-300"
+          >
+            <i class="ri-twitter-x-fill ri-lg"></i>
+          </a>
+          <a
+            href="#"
+            class="social-icon w-10 h-10 flex items-center justify-center bg-gradient-to-r from-[#405DE6] via-[#E1306C] to-[#FFDC80] text-white rounded-full transition duration-300"
+          >
+            <i class="ri-instagram-fill ri-lg"></i>
+          </a>
+        </div>
+        <a
+          href="#contact"
+          class="bg-primary text-white px-6 py-3 rounded-button font-medium transition duration-300 hover:bg-primary/90 pulse cursor-pointer"
+        >
+          Get In Touch
+        </a>
+      </div>
+    </section>
+    <!-- About Me Section -->
+    <section id="about" class="py-12 px-4 bg-gray-50">
+      <div class="max-w-md mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-center">About Me</h2>
+        <div class="bg-white p-6 rounded-lg shadow-sm mb-8 fade-in">
+          <p class="text-gray-700 leading-relaxed mb-4">
+            Hello! I'm Joseph, a passionate web developer and designer currently
+            pursuing a Bachelor's degree in Information Technology at Muni
+            University.
+          </p>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            With a keen eye for design and strong technical skills, I create
+            beautiful, functional websites that deliver exceptional user
+            experiences.
+          </p>
+          <p class="text-gray-700 leading-relaxed">
+            When I'm not coding or designing, you can find me exploring new
+            technologies, contributing to open-source projects, or mentoring
+            aspiring developers.
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm float">
+          <h3 class="text-xl font-semibold mb-4">Why Work With Me?</h3>
+          <div class="flex items-start mb-4">
+            <div
+              class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-4 mt-1"
+            >
+              <i class="ri-check-line ri-lg"></i>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900">Creative Solutions</h4>
+              <p class="text-gray-600 text-sm">
+                I approach each project with fresh ideas and innovative
+                thinking.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start mb-4">
+            <div
+              class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-4 mt-1"
+            >
+              <i class="ri-check-line ri-lg"></i>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900">Attention to Detail</h4>
+              <p class="text-gray-600 text-sm">
+                I ensure every pixel is perfect and every interaction is smooth.
+              </p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <div
+              class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-4 mt-1"
+            >
+              <i class="ri-check-line ri-lg"></i>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900">Client-Focused</h4>
+              <p class="text-gray-600 text-sm">
+                Your vision and goals are my priority throughout the project.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Skills Section -->
+    <section id="skills" class="py-12 px-4">
+      <div class="max-w-md mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-center">Skills & Education</h2>
+        <div class="bg-white p-6 rounded-lg shadow-sm mb-8">
+          <h3 class="text-xl font-semibold mb-4">Technical Skills</h3>
+          <div class="mb-4">
+            <div class="flex justify-between mb-1">
+              <span class="text-sm font-medium text-gray-700">HTML/CSS</span>
+              <span class="text-sm font-medium text-gray-700">95%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 95%"></div>
+            </div>
+          </div>
+          <div class="mb-4">
+            <div class="flex justify-between mb-1">
+              <span class="text-sm font-medium text-gray-700">JavaScript</span>
+              <span class="text-sm font-medium text-gray-700">85%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 85%"></div>
+            </div>
+          </div>
+          <div class="mb-4">
+            <div class="flex justify-between mb-1">
+              <span class="text-sm font-medium text-gray-700"
+                >UI/UX Design</span
+              >
+              <span class="text-sm font-medium text-gray-700">90%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 90%"></div>
+            </div>
+          </div>
+          <div class="mb-4">
+            <div class="flex justify-between mb-1">
+              <span class="text-sm font-medium text-gray-700">React</span>
+              <span class="text-sm font-medium text-gray-700">80%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 80%"></div>
+            </div>
+          </div>
+          <div>
+            <div class="flex justify-between mb-1">
+              <span class="text-sm font-medium text-gray-700">Node.js</span>
+              <span class="text-sm font-medium text-gray-700">75%</span>
+            </div>
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 75%"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+          <h3 class="text-xl font-semibold mb-4">Education</h3>
+          <div class="timeline-item pb-6">
+            <h4 class="font-medium text-gray-900">
+              Bachelor of Information Technology
+            </h4>
+            <p class="text-gray-600 text-sm mb-1">Muni University</p>
+            <p class="text-gray-500 text-xs">2024 - Present</p>
+          </div>
+          <div class="timeline-item pb-6">
+            <h4 class="font-medium text-gray-900">
+              Web Development Certification
+            </h4>
+            <p class="text-gray-600 text-sm mb-1">ST. Andrea Kahwaa's CollegeHoima</p>
+            <p class="text-gray-500 text-xs">2023</p>
+          </div>
+          <div class="timeline-item">
+            <h4 class="font-medium text-gray-900">Database management System</h4>
+            <p class="text-gray-600 text-sm mb-1">Coursera</p>
+            <p class="text-gray-500 text-xs">2025</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <h4 class="font-medium text-gray-900">Fundamentals of Programming with Python</h4>
+          <p class="text-gray-600 text-sm mb-1">Coursera</p>
+          <p class="text-gray-500 text-xs">2025</p>
+        </div>
+        <div class="timeline-item">
+          <h4 class="font-medium text-gray-900">Computer Networking</h4>
+          <p class="text-gray-600 text-sm mb-1">Cisco</p>
+          <p class="text-gray-500 text-xs">2025</p>
+        </div>
+      </div>
+    </section>
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-12 px-4 bg-gray-50">
+      <div class="max-w-md mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-center">My Portfolio</h2>
+        <div class="flex mb-6 overflow-x-auto py-2 space-x-2">
+          <button
+            class="bg-primary text-white px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap cursor-pointer"
+          >
+            All Projects
+          </button>
+          <button
+            class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap cursor-pointer"
+          >
+            Web Design
+          </button>
+          <button
+            class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap cursor-pointer"
+          >
+            Development
+          </button>
+          <button
+            class="bg-white text-gray-700 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap cursor-pointer"
+          >
+            UI/UX
+          </button>
+        </div>
+        <div class="grid grid-cols-1 gap-6">
+          <div
+            class="project-card bg-white rounded-lg overflow-hidden shadow-sm cursor-pointer"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=modern%20e-commerce%20website%20interface%20design%2C%20clean%20layout%2C%20product%20showcase%2C%20responsive%20design%2C%20professional%20web%20design&width=800&height=450&seq=2&orientation=landscape"
+                alt="E-commerce Website"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 mb-1">
+                E-commerce Website
+              </h3>
+              <p class="text-gray-600 text-sm mb-2">
+                Full-stack development with React and Node.js
+              </p>
+              <div class="flex space-x-2">
+                <span
+                  class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                  >React</span
+                >
+                <span
+                  class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                  >Node.js</span
+                >
+                <span
+                  class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                  >MongoDB</span
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="project-card bg-white rounded-lg overflow-hidden shadow-sm cursor-pointer"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=mobile%20app%20UI%20design%2C%20clean%20interface%2C%20user-friendly%20navigation%2C%20modern%20app%20design%2C%20financial%20app%20dashboard&width=800&height=450&seq=3&orientation=landscape"
+                alt="Finance App UI"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 mb-1">Finance App UI</h3>
+              <p class="text-gray-600 text-sm mb-2">
+                Mobile application interface design
+              </p>
+              <div class="flex space-x-2">
+                <span
+                  class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                  >Figma</span
+                >
+                <span
+                  class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                  >UI/UX</span
+                >
+                <span
+                  class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                  >Prototyping</span
+                >
+              </div>
+            </div>
+          </div>
+          <div
+            class="project-card bg-white rounded-lg overflow-hidden shadow-sm cursor-pointer"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=educational%20website%20design%2C%20learning%20platform%20interface%2C%20course%20listings%2C%20clean%20layout%2C%20professional%20web%20design&width=800&height=450&seq=4&orientation=landscape"
+                alt="Learning Platform"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="font-semibold text-gray-900 mb-1">
+                Learning Platform
+              </h3>
+              <p class="text-gray-600 text-sm mb-2">
+                Educational website with course management
+              </p>
+              <div class="flex space-x-2">
+                <span
+                  class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                  >HTML/CSS</span
+                >
+                <span
+                  class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                  >JavaScript</span
+                >
+                <span
+                  class="bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                  >PHP</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-8">
+          <button
+            class="border border-primary text-primary px-6 py-3 rounded-button font-medium transition duration-300 hover:bg-primary/5 cursor-pointer"
+          >
+            View All Projects
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 px-4">
+      <div class="max-w-md mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-center">Get In Touch</h2>
+        <div class="bg-white p-6 rounded-lg shadow-sm mb-8">
+          <form>
+            <div class="mb-4">
+              <label
+                for="name"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Name</label
+              >
+              <input
+                type="text"
+                id="name"
+                class="form-input w-full px-4 py-2 border border-gray-300 rounded focus:outline-none"
+                placeholder="Your name"
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Email</label
+              >
+              <input
+                type="email"
+                id="email"
+                class="form-input w-full px-4 py-2 border border-gray-300 rounded focus:outline-none"
+                placeholder="Your email"
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                for="subject"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Subject</label
+              >
+              <input
+                type="text"
+                id="subject"
+                class="form-input w-full px-4 py-2 border border-gray-300 rounded focus:outline-none"
+                placeholder="Subject"
+              />
+            </div>
+            <div class="mb-6">
+              <label
+                for="message"
+                class="block text-sm font-medium text-gray-700 mb-1"
+                >Message</label
+              >
+              <textarea
+                id="message"
+                rows="4"
+                class="form-input w-full px-4 py-2 border border-gray-300 rounded focus:outline-none"
+                placeholder="Your message"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-primary text-white px-6 py-3 rounded-button font-medium transition duration-300 hover:bg-primary/90 btn-submit cursor-pointer"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow-sm">
+          <h3 class="text-xl font-semibold mb-4">Contact Information</h3>
+          <div class="flex items-start mb-4">
+            <div
+              class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-4 mt-1"
+            >
+              <i class="ri-mail-line ri-lg"></i>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900">Email</h4>
+              <p class="text-gray-600 text-sm">mwesigwajoseph@example.com</p>
+            </div>
+          </div>
+          <div class="flex items-start mb-4">
+            <div
+              class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-4 mt-1"
+            >
+              <i class="ri-phone-line ri-lg"></i>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900">Phone</h4>
+              <p class="text-gray-600 text-sm" ><a href="tel:+2567755951824">+256 7755951824</a></p>
+              <p class="text-gray-600 text-sm"><a href="tel:+256777761928">+256 777761928</a></p>
+
+              <p><a href="https://wa.me/256755951824"> Lets chat on whatsapp</a></p>
+              <p><a href="https://www.facebook.com/jose.nevis.12"> Visit me on Facebook</a></p>
+            </div>
+          </div>
+          <div class="flex items-start">
+            <div
+              class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-4 mt-1"
+            >
+              <i class="ri-map-pin-line ri-lg"></i>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-900">Location</h4>
+              <p class="text-gray-600 text-sm">Muni University, Arua, Uganda</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-8 px-4">
+      <div class="max-w-md mx-auto">
+        <div class="flex justify-center mb-6">
+          <div
+            class="w-12 h-12 flex items-center justify-center bg-gradient-to-r from-primary to-secondary rounded-full"
+          >
+            <span class="font-['Pacifico'] text-xl">XN</span>
+          </div>
+        </div>
+        <div class="flex justify-center space-x-6 mb-6">
+          <a
+            href="#"
+            class="social-icon w-10 h-10 flex items-center justify-center bg-white/10 text-white rounded-full transition duration-300 hover:bg-white/20"
+          >
+            <i class="ri-linkedin-fill ri-lg"></i>
+          </a>
+          <a
+            href="#"
+            class="social-icon w-10 h-10 flex items-center justify-center bg-white/10 text-white rounded-full transition duration-300 hover:bg-white/20"
+          >
+            <i class="ri-github-fill ri-lg"></i>
+          </a>
+          <a
+            href="#"
+            class="social-icon w-10 h-10 flex items-center justify-center bg-white/10 text-white rounded-full transition duration-300 hover:bg-white/20"
+          >
+            <i class="ri-twitter-x-fill ri-lg"></i>
+          </a>
+          <a
+            href="#"
+            class="social-icon w-10 h-10 flex items-center justify-center bg-white/10 text-white rounded-full transition duration-300 hover:bg-white/20"
+          >
+            <i class="ri-instagram-fill ri-lg"></i>
+          </a>
+        </div>
+        <div class="text-center text-gray-400 text-sm">
+          <p>&copy; 2025 Mwesigwa Joseph (Xnice Nevis). All rights reserved.</p>
+          <p class="mt-2">Designed and developed with ❤️</p>
+        </div>
+        <div class="flex justify-center mt-6">
+          <a
+            href="#home"
+            class="w-10 h-10 flex items-center justify-center bg-primary/20 text-primary rounded-full transition duration-300 hover:bg-primary/30 cursor-pointer"
+          >
+            <i class="ri-arrow-up-line ri-lg"></i>
+          </a>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // Welcome animation
+      document.addEventListener("DOMContentLoaded", function () {
+        setTimeout(function () {
+          document.body.classList.add("content-loaded");
+        }, 3500); // Match with animation duration + delay
+      });
+      // Mobile menu toggle
+      document
+        .querySelector(".ri-menu-line")
+        .parentElement.addEventListener("click", function () {
+          const mobileMenu = document.querySelector(".hidden.fixed.inset-0.bg-white");
+          mobileMenu.classList.toggle("hidden");
+        });
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href");
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            // Close mobile menu if open
+            document
+              .querySelector(".hidden.fixed.inset-0.bg-white")
+              .classList.add("hidden");
+            window.scrollTo({
+              top: targetElement.offsetTop - 70, // Adjust for header height
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+      // Form submission
+      const form = document.querySelector("form");
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const subjectInput = document.getElementById("subject");
+        const messageInput = document.getElementById("message");
+        // Simple validation
+        if (!nameInput.value || !emailInput.value || !messageInput.value) {
+          // Create and show error message
+          const errorMessage = document.createElement("div");
+          errorMessage.className = "bg-red-100 text-red-700 p-3 rounded mb-4";
+          errorMessage.textContent = "Please fill in all required fields.";
+          // Remove any existing error message
+          const existingError = form.querySelector(".bg-red-100");
+          if (existingError) {
+            existingError.remove();
+          }
+          form.prepend(errorMessage);
+          return;
+        }
+        // Show success message
+        const successMessage = document.createElement("div");
+        successMessage.className = "bg-green-100 text-green-700 p-3 rounded mb-4";
+        successMessage.textContent = "Your message has been sent successfully!";
+        // Remove any existing messages
+        const existingMessage = form.querySelector(".bg-red-100, .bg-green-100");
+        if (existingMessage) {
+          existingMessage.remove();
+        }
+        form.prepend(successMessage);
+        // Reset form
+        form.reset();
+        // Remove success message after 3 seconds
+        setTimeout(() => {
+          successMessage.remove();
+        }, 3000);
+      });
+      // Animation on scroll
+      function animateOnScroll() {
+        const elements = document.querySelectorAll(".fade-in");
+        elements.forEach((element) => {
+          const elementPosition = element.getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          if (elementPosition < windowHeight - 100) {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
+          }
+        });
+      }
+      // Initial check and add scroll event listener
+      animateOnScroll();
+      window.addEventListener("scroll", animateOnScroll);
+    </script>
+  </body>
+</html>

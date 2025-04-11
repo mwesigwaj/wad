@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jose University - Admission Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#1a237e", secondary: "#ffd700" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      :where([class^="ri-"])::before { content: "\f3c2"; }
+      body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+      height: 100vh;
+      width: 375px;
+      margin: 0 auto;
+      position: relative;
+      }
+      .page-container {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      overflow-x: hidden;
+      }
+      .background-image {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://readdy.ai/api/search-image?query=Beautiful%20university%20campus%20with%20historic%20buildings%2C%20green%20lawns%2C%20students%20walking%2C%20sunny%20day%2C%20academic%20atmosphere%2C%20prestigious%20institution&width=1200&height=800&seq=123456&orientation=landscape');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.3);
+      z-index: -1;
+      }
+      .form-container {
+      padding: 24px 16px;
+      margin-top: 60px;
+      margin-bottom: 80px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .form-header {
+      text-align: center;
+      margin-bottom: 24px;
+      }
+      .form-section {
+      margin-bottom: 24px;
+      }
+      .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #1a237e;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #e0e0e0;
+      }
+      .form-group {
+      margin-bottom: 16px;
+      position: relative;
+      }
+      .form-label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #333;
+      font-weight: 500;
+      }
+      .required::after {
+      content: "*";
+      color: #ff4444;
+      margin-left: 4px;
+      }
+      .form-input,
+      .form-select,
+      .form-textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background-color: white;
+      }
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+      outline: none;
+      border-color: #1a237e;
+      box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+      }
+      .form-input.error,
+      .form-select.error,
+      .form-textarea.error {
+      border-color: #ff4444;
+      }
+      .form-input.valid,
+      .form-select.valid,
+      .form-textarea.valid {
+      border-color: #4CAF50;
+      }
+      .error-message {
+      color: #ff4444;
+      font-size: 12px;
+      margin-top: 4px;
+      display: none;
+      }
+      .error-message.visible {
+      display: block;
+      }
+      .radio-group {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+      }
+      .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      }
+      .photo-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      }
+      .photo-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      background-color: #f3f4f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      }
+      .photo-preview img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: cover;
+      }
+      .upload-btn {
+      background-color: #f3f4f6;
+      border: 1px dashed #d1d5db;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      }
+      .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-top: 16px;
+      }
+      .submit-btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #1a237e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      }
+      .submit-btn:hover {
+      background-color: #0d1642;
+      }
+      .submit-btn:disabled {
+      background-color: #9e9e9e;
+      cursor: not-allowed;
+      }
+      .success-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      }
+      .success-modal.visible {
+      opacity: 1;
+      visibility: visible;
+      }
+      .modal-content {
+      background-color: white;
+      border-radius: 8px;
+      padding: 32px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      }
+      .success-modal.visible .modal-content {
+      transform: translateY(0);
+      }
+      .success-icon {
+      font-size: 64px;
+      color: #4CAF50;
+      margin-bottom: 16px;
+      }
+      .success-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 8px;
+      }
+      .success-message {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 24px;
+      }
+      .reference-number {
+      background-color: #f3f4f6;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      }
+      .next-steps {
+      text-align: left;
+      margin-bottom: 24px;
+      }
+      .next-steps-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      }
+      .next-steps-list {
+      padding-left: 20px;
+      }
+      .close-btn {
+      background-color: #1a237e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      }
+      .close-btn:hover {
+      background-color: #0d1642;
+      }
+      .loading-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      }
+      @keyframes spin {
+      to {
+      transform: rotate(360deg);
+      }
+      }
+      @media (max-width: 375px) {
+      .form-container {
+      padding: 16px 12px;
+      }
+      .radio-group {
+      flex-direction: column;
+      gap: 8px;
+      }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-container">
+      <div class="background-image"></div>
+      <header class="fixed top-0 w-full bg-primary text-white py-4 px-4 z-10">
+        <h1 class="text-xl font-['Pacifico'] text-center">JOSE UNIVERSITY</h1>
+      </header>
+      <main class="form-container">
+        <div class="form-header">
+          <h2 class="text-2xl font-bold text-primary mb-2">
+            Student Admission Application
+          </h2>
+          <p class="text-gray-600 text-sm">
+            Please complete all required fields marked with an asterisk (*)
+          </p>
+        </div>
+        <form id="admissionForm">
+          <div class="form-section">
+            <h3 class="section-title">Personal Information</h3>
+            <div class="form-group">
+              <label class="form-label required" for="fullName"
+                >Full Name</label
+              >
+              <input type="text" id="fullName" class="form-input" required />
+              <div class="error-message" id="fullNameError">
+                Please enter your full name
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label required" for="dateOfBirth"
+                >Date of Birth</label
+              >
+              <input
+                type="date"
+                id="dateOfBirth"
+                class="form-input"
+                required
+                max="2007-04-10"
+              />
+              <div class="error-message" id="dateOfBirthError">
+                Please enter a valid date of birth
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label required">Gender</label>
+              <div class="radio-group">
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="male"
+                    name="gender"
+                    value="male"
+                    required
+                  />
+                  <label for="male">Male</label>
+                </div>
+                <div class="radio-option">
+                  <input
+                    type="radio"
+                    id="female"
+                    name="gender"
+                    value="female"
+                  />
+                  <label for="female">Female</label>
+                </div>
+                <div class="radio-option">
+                  <input type="radio" id="other" name="gender" value="other" />
+                  <label for="other">Other</label>
+                </div>
+              </div>
+              <div class="error-message" id="genderError">
+                Please select your gender
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="nationality">Nationality</label>
+              <input type="text" id="nationality" class="form-input" />
+            </div>
+            <div class="form-group">
+              <label class="form-label">Photo Upload</label>
+              <div class="photo-upload">
+                <div class="photo-preview" id="photoPreview">
+                  <i class="ri-user-3-line ri-3x text-gray-400"></i>
+                </div>
+                <label class="upload-btn cursor-pointer">
+                  <i class="ri-upload-2-line"></i>
+                  <span>Choose Photo</span>
+                  <input
+                    type="file"
+                    id="photoUpload"
+                    accept="image/*"
+                    style="display: none;"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="form-section">
+            <h3 class="section-title">Contact Information</h3>
+            <div class="form-group">
+              <label class="form-label required" for="email"
+                >Email Address</label
+              >
+              <input type="email" id="email" class="form-input" required />
+              <div class="error-message" id="emailError">
+                Please enter a valid email address
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label required" for="phone"
+                >Phone Number</label
+              >
+              <input type="tel" id="phone" class="form-input" required />
+              <div class="error-message" id="phoneError">
+                Please enter a valid phone number
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="address">Current Address</label>
+              <textarea id="address" class="form-textarea" rows="3"></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="form-group">
+                <label class="form-label" for="city">City</label>
+                <input type="text" id="city" class="form-input" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="state">State</label>
+                <input type="text" id="state" class="form-input" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="zipCode">Zip Code</label>
+              <input type="text" id="zipCode" class="form-input" />
+            </div>
+          </div>
+          <div class="form-section">
+            <h3 class="section-title">Academic Information</h3>
+            <div class="form-group">
+              <label class="form-label required" for="previousSchool"
+                >Previous School Name</label
+              >
+              <input
+                type="text"
+                id="previousSchool"
+                class="form-input"
+                required
+              />
+              <div class="error-message" id="previousSchoolError">
+                Please enter your previous school name
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label required" for="graduationYear"
+                >Graduation Year</label
+              >
+              <input
+                type="number"
+                id="graduationYear"
+                class="form-input"
+                min="2000"
+                max="2025"
+                required
+              />
+              <div class="error-message" id="graduationYearError">
+                Please enter a valid graduation year
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label required" for="gpa"
+                >GPA (out of 5.0)</label
+              >
+              <input
+                type="number"
+                id="gpa"
+                class="form-input"
+                min="0"
+                max="5"
+                step="0.01"
+                required
+              />
+              <div class="error-message" id="gpaError">
+                Please enter a valid GPA between 0 and 5
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label required" for="intendedMajor"
+                >Intended Major</label
+              >
+              <select id="intendedMajor" class="form-select" required>
+                <option value="">Select a major</option>
+                <option value="computer-science">Computer Science</option>
+                <option value="business">Business Administration</option>
+                <option value="engineering">Engineering</option>
+                <option value="psychology">Psychology</option>
+                <option value="biology">Biology</option>
+                <option value="communications">Communications</option>
+                <option value="education">Education</option>
+                <option value="arts">Fine Arts</option>
+                <option value="other">Other</option>
+              </select>
+              <div class="error-message" id="intendedMajorError">
+                Please select your intended major
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="achievements"
+                >Academic Achievements</label
+              >
+              <textarea
+                id="achievements"
+                class="form-textarea"
+                rows="4"
+                placeholder="List any honors, awards, or significant academic accomplishments"
+              ></textarea>
+            </div>
+          </div>
+          <div class="checkbox-group">
+            <input type="checkbox" id="termsAgreement" required />
+            <label for="termsAgreement" class="text-sm text-gray-700">
+              I agree to the
+              <a href="#" class="text-primary">Terms and Conditions</a> and
+              confirm that all information provided is accurate and complete.
+            </label>
+          </div>
+          <div class="error-message" id="termsAgreementError">
+            You must agree to the terms and conditions
+          </div>
+          <div class="flex gap-4 mt-6">
+            <button
+              type="button"
+              id="resetBtn"
+              class="submit-btn !rounded-button bg-gray-500 hover:bg-gray-600"
+            >
+              <i class="ri-refresh-line mr-2"></i>
+              <span>Reset Form</span>
+            </button>
+            <button type="submit" class="submit-btn !rounded-button flex-1">
+              <span>Submit Application</span>
+              <div class="loading-spinner" id="loadingSpinner"></div>
+            </button>
+          </div>
+        </form>
+      </main>
+      <div class="success-modal" id="successModal">
+        <div class="modal-content">
+          <div class="w-16 h-16 flex items-center justify-center mx-auto mb-4">
+            <i class="ri-check-line ri-3x text-green-500"></i>
+          </div>
+          <h3 class="success-title">Application Submitted!</h3>
+          <p class="success-message">
+            Thank you for applying to Jose University. Your application has been
+            received successfully.
+          </p>
+          <div class="reference-number">Application ID: JU-2025-78542</div>
+          <div class="next-steps">
+            <h4 class="next-steps-title">Next Steps:</h4>
+            <ol class="next-steps-list">
+              <li>Check your email for a confirmation message</li>
+              <li>Complete any additional requirements</li>
+              <li>Prepare for a possible interview</li>
+              <li>Admission decisions will be sent within 4-6 weeks</li>
+            </ol>
+          </div>
+          <button class="close-btn !rounded-button" id="closeModal">
+            Return to Homepage
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("admissionForm");
+        const fullNameInput = document.getElementById("fullName");
+        const dateOfBirthInput = document.getElementById("dateOfBirth");
+        const emailInput = document.getElementById("email");
+        const phoneInput = document.getElementById("phone");
+        const previousSchoolInput = document.getElementById("previousSchool");
+        const graduationYearInput = document.getElementById("graduationYear");
+        const gpaInput = document.getElementById("gpa");
+        const intendedMajorSelect = document.getElementById("intendedMajor");
+        const termsAgreementCheckbox = document.getElementById("termsAgreement");
+        const photoUploadInput = document.getElementById("photoUpload");
+        const photoPreviewDiv = document.getElementById("photoPreview");
+        const loadingSpinner = document.getElementById("loadingSpinner");
+        const successModal = document.getElementById("successModal");
+        const closeModalBtn = document.getElementById("closeModal");
+        // Validate Full Name
+        fullNameInput.addEventListener("blur", function () {
+          validateField(
+            fullNameInput,
+            "fullNameError",
+            function (value) {
+              return value.trim().length >= 3;
+            },
+            "Please enter your full name (at least 3 characters)",
+          );
+        });
+        // Validate Date of Birth
+        dateOfBirthInput.addEventListener("blur", function () {
+          validateField(
+            dateOfBirthInput,
+            "dateOfBirthError",
+            function (value) {
+              if (!value) return false;
+              const birthDate = new Date(value);
+              const today = new Date();
+              const minAge = 16; // Minimum age requirement
+              let age = today.getFullYear() - birthDate.getFullYear();
+              const m = today.getMonth() - birthDate.getMonth();
+              if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+              }
+              return age >= minAge;
+            },
+            "You must be at least 16 years old to apply",
+          );
+        });
+        // Validate Email
+        emailInput.addEventListener("blur", function () {
+          validateField(
+            emailInput,
+            "emailError",
+            function (value) {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              return emailRegex.test(value);
+            },
+            "Please enter a valid email address",
+          );
+        });
+        // Validate Phone
+        phoneInput.addEventListener("blur", function () {
+          validateField(
+            phoneInput,
+            "phoneError",
+            function (value) {
+              const phoneRegex = /^\+?[0-9]{10,15}$/;
+              return phoneRegex.test(value.replace(/[\s()-]/g, ""));
+            },
+            "Please enter a valid phone number (10-15 digits)",
+          );
+        });
+        // Validate Previous School
+        previousSchoolInput.addEventListener("blur", function () {
+          validateField(
+            previousSchoolInput,
+            "previousSchoolError",
+            function (value) {
+              return value.trim().length >= 2;
+            },
+            "Please enter your previous school name",
+          );
+        });
+        // Validate Graduation Year
+        graduationYearInput.addEventListener("blur", function () {
+          validateField(
+            graduationYearInput,
+            "graduationYearError",
+            function (value) {
+              const year = parseInt(value);
+              return !isNaN(year) && year >= 2000 && year <= 2025;
+            },
+            "Please enter a valid graduation year between 2000 and 2025",
+          );
+        });
+        // Validate GPA
+        gpaInput.addEventListener("blur", function () {
+          validateField(
+            gpaInput,
+            "gpaError",
+            function (value) {
+              const gpa = parseFloat(value);
+              return !isNaN(gpa) && gpa >= 0 && gpa <= 4;
+            },
+            "Please enter a valid GPA between 0 and 4",
+          );
+        });
+        // Validate Intended Major
+        intendedMajorSelect.addEventListener("change", function () {
+          validateField(
+            intendedMajorSelect,
+            "intendedMajorError",
+            function (value) {
+              return value !== "";
+            },
+            "Please select your intended major",
+          );
+        });
+        // Handle photo upload
+        photoUploadInput.addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              photoPreviewDiv.innerHTML = `<img src="${event.target.result}" alt="Profile Photo">`;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+        // Form submission
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Validate all fields before submission
+          const isFullNameValid = validateField(
+            fullNameInput,
+            "fullNameError",
+            function (value) {
+              return value.trim().length >= 3;
+            },
+            "Please enter your full name (at least 3 characters)",
+          );
+          const isDateOfBirthValid = validateField(
+            dateOfBirthInput,
+            "dateOfBirthError",
+            function (value) {
+              if (!value) return false;
+              const birthDate = new Date(value);
+              const today = new Date();
+              const minAge = 16;
+              let age = today.getFullYear() - birthDate.getFullYear();
+              const m = today.getMonth() - birthDate.getMonth();
+              if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+              }
+              return age >= minAge;
+            },
+            "You must be at least 16 years old to apply",
+          );
+          const isEmailValid = validateField(
+            emailInput,
+            "emailError",
+            function (value) {
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              return emailRegex.test(value);
+            },
+            "Please enter a valid email address",
+          );
+          const isPhoneValid = validateField(
+            phoneInput,
+            "phoneError",
+            function (value) {
+              const phoneRegex = /^\+?[0-9]{10,15}$/;
+              return phoneRegex.test(value.replace(/[\s()-]/g, ""));
+            },
+            "Please enter a valid phone number (10-15 digits)",
+          );
+          const isPreviousSchoolValid = validateField(
+            previousSchoolInput,
+            "previousSchoolError",
+            function (value) {
+              return value.trim().length >= 2;
+            },
+            "Please enter your previous school name",
+          );
+          const isGraduationYearValid = validateField(
+            graduationYearInput,
+            "graduationYearError",
+            function (value) {
+              const year = parseInt(value);
+              return !isNaN(year) && year >= 2000 && year <= 2025;
+            },
+            "Please enter a valid graduation year between 2000 and 2025",
+          );
+          const isGpaValid = validateField(
+            gpaInput,
+            "gpaError",
+            function (value) {
+              const gpa = parseFloat(value);
+              return !isNaN(gpa) && gpa >= 0 && gpa <= 4;
+            },
+            "Please enter a valid GPA between 0 and 4",
+          );
+          const isIntendedMajorValid = validateField(
+            intendedMajorSelect,
+            "intendedMajorError",
+            function (value) {
+              return value !== "";
+            },
+            "Please select your intended major",
+          );
+          const isGenderSelected = document.querySelector(
+            'input[name="gender"]:checked',
+          );
+          if (!isGenderSelected) {
+            document.getElementById("genderError").classList.add("visible");
+          } else {
+            document.getElementById("genderError").classList.remove("visible");
+          }
+          const isTermsAgreed = validateField(
+            termsAgreementCheckbox,
+            "termsAgreementError",
+            function (value) {
+              return termsAgreementCheckbox.checked;
+            },
+            "You must agree to the terms and conditions",
+          );
+          // If all validations pass, submit the form
+          if (
+            isFullNameValid &&
+            isDateOfBirthValid &&
+            isGenderSelected &&
+            isEmailValid &&
+            isPhoneValid &&
+            isPreviousSchoolValid &&
+            isGraduationYearValid &&
+            isGpaValid &&
+            isIntendedMajorValid &&
+            isTermsAgreed
+          ) {
+            // Show loading spinner
+            loadingSpinner.style.display = "block";
+            // Simulate form submission
+            setTimeout(function () {
+              loadingSpinner.style.display = "none";
+              successModal.classList.add("visible");
+            }, 2000);
+          }
+        });
+        // Reset form function
+        function resetForm() {
+          form.reset();
+          photoPreviewDiv.innerHTML =
+            '<i class="ri-user-3-line ri-3x text-gray-400"></i>';
+
+          // Remove validation classes
+          const formInputs = form.querySelectorAll(
+            ".form-input, .form-select, .form-textarea",
+          );
+          formInputs.forEach((input) => {
+            input.classList.remove("error", "valid");
+          });
+
+          // Hide all error messages
+          const errorMessages = form.querySelectorAll(".error-message");
+          errorMessages.forEach((message) => {
+            message.classList.remove("visible");
+          });
+        }
+        // Reset button event listener
+        document.getElementById("resetBtn").addEventListener("click", function () {
+          if (
+            confirm(
+              "Are you sure you want to reset the form? All entered data will be lost.",
+            )
+          ) {
+            resetForm();
+          }
+        });
+        // Close modal
+        closeModalBtn.addEventListener("click", function () {
+          successModal.classList.remove("visible");
+          resetForm();
+        });
+        // Helper function to validate fields
+        function validateField(
+          inputElement,
+          errorElementId,
+          validationFunction,
+          errorMessage,
+        ) {
+          const errorElement = document.getElementById(errorElementId);
+          const isValid = validationFunction(inputElement.value);
+          if (!isValid) {
+            inputElement.classList.add("error");
+            inputElement.classList.remove("valid");
+            errorElement.textContent = errorMessage;
+            errorElement.classList.add("visible");
+          } else {
+            inputElement.classList.remove("error");
+            inputElement.classList.add("valid");
+            errorElement.classList.remove("visible");
+          }
+          return isValid;
+        }
+      });
+    </script>
+  </body>
+</html>
